@@ -415,6 +415,20 @@ public:
   static void set_wisp_booted(Thread* thread);
   static const char *print_os_park_reason(int reason);
   static const char *print_blocking_status(int status);
+  static const bool is_current_death_pending(JavaThread *thread) {
+      if (EnableCoroutine && Wisp2ThreadStop) {
+        if (thread->current_coroutine() == NULL) {
+          // Main Thread
+          return false;
+        }
+        if (thread->current_coroutine()->wisp_task() == NULL) {
+          // Blacklisted threads that are not converted to couroutines
+          return false;
+        }
+        return com_alibaba_wisp_engine_WispTask::get_shutdownPending(thread->current_coroutine()->wisp_task());
+      }
+      return false;
+  }
 
   virtual bool is_Wisp_thread() const { return true; }
 

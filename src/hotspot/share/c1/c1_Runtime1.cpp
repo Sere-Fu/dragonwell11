@@ -496,7 +496,8 @@ JRT_ENTRY_NO_ASYNC(static address, exception_handler_for_pc_helper(JavaThread* t
   // Reset method handle flag.
   thread->set_is_method_handle_return(false);
 
-  Handle exception(thread, ex);
+  Handle exception(thread, WispThread::is_current_death_pending(thread)?
+    (oopDesc*) Universe::wisp_thread_death_exception() : ex);
   nm = CodeCache::find_nmethod(pc);
   assert(nm != NULL, "this is not an nmethod");
   // Adjust the pc as needed/
