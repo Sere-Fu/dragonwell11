@@ -354,7 +354,7 @@ address JVMCIRuntime::exception_handler_for_pc(JavaThread* thread) {
 }
 
 JRT_BLOCK_ENTRY(void, JVMCIRuntime::monitorenter(JavaThread* thread, oopDesc* obj, BasicLock* lock))
-  SharedRuntime::monitor_enter_helper(obj, lock, thread, JVMCIUseFastLocking);
+  SharedRuntime::monitor_enter_helper(obj, lock, thread, JVMCIUseFastLocking, __hm);
 JRT_END
 
 JRT_LEAF(void, JVMCIRuntime::monitorexit(JavaThread* thread, oopDesc* obj, BasicLock* lock))
