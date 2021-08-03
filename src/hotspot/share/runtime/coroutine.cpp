@@ -638,8 +638,8 @@ void WispThread::unpark(int task_id, bool using_wisp_park, bool proxy_unpark, Pa
   args.push_int(task_id);
   bool in_java = false;
   oop pending_excep = NULL;
-  const char* pending_file;
-  int pending_line;
+  const char* pending_file = NULL;
+  int pending_line = 0;
   // Class not found exception may appear here.
   // If there exists an exception, the java call could not succeed.
   // So must record and clear excpetions here.

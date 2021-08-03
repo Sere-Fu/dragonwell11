@@ -236,7 +236,7 @@ class SystemDictObjMonitor : public SystemDictMonitor {
     virtual void set_obj_lock(oop obj, TRAPS);
     virtual oop obj()          const    { return _obj;                   }
     virtual bool is_obj_lock() const    { return _obj != NULL;           }
-    virtual void oops_do(OopClosure* f) { if (_obj)  f->do_oop(&_obj);   }
+    virtual void oops_do(OopClosure* f) { if (_obj != NULL)  f->do_oop(&_obj);   }
 };
 
 #endif // SHARE_VM_RUNTIME_SYNCHRONIZER_HPP
